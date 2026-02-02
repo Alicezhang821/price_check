@@ -19,7 +19,7 @@ test('Price alert', async ({ page }) => {
     // Convert "6,709.79" → 6709.79
     const price = Number(priceText.replace(/,/g, '').trim());
     console.log(price);
-    fs.writeFileSync('price.txt', price.toString());
+    fs.writeFileSync('./price.txt', price.toString());
     expect(price).toBeGreaterThanOrEqual(7000);
   } else {
     console.log('Out of stock');
