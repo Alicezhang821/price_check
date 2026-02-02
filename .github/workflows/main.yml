@@ -1,14 +1,45 @@
-name: Scheduled job
+name: Price Alert SMS
 
 on:
   schedule:
-    - cron: "*/30 * * * *"
-  workflow_dispatch: # optional: allows manual run
+    - cron: "*/30 * * * *" # every 30 minutes
+  workflow_dispatch:
 
 jobs:
-  run-task:
+  notify:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Run script
-        run: npx playwright test|echo "PRICE=$(cat price.txt)" >> $GITHUB_ENV
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - run: npm ci
+
+      # Run Playwright test to check price
+      - name: Run Playwright test
+        run: npx playwright test tests/price.spec.ts
+
+      # Read price from Playwright output
+      - name: Set price variable
+        id: price
+        run: |
+          echo "PRICE=$(cat price.txt)" >> $GITHUB_ENV
+
+      # Send SMS via Courier
+      - name: Send SMS via Courier
+        run: |
+          curl -X POST https://api.courier.com/send \
+          -H "Authorization: Bearer ${{ secrets.COURIER_API_KEY }}" \
+          -H "Content-Type: application/json" \
+          -d "{
+            \"message\": {
+              \"to\": { \"phone_number\": \"+61420808520\" },
+              \"template\": \"price-alert-sms\",
+              \"data\": {
+                \"price\": \"${{ env.PRICE }}\",
+                \"url\": \"https://www.perthmint.com/shop/bullion/cast-bars/perth-mint-1oz-gold-cast-bar/\"
+              }
+            }
+          }"
