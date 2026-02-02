@@ -4,7 +4,7 @@ import Twilio from 'twilio'
 const accountSid = process.env.TWILIO_ACCOUNT_SID;
 const authToken = process.env.TWILIO_AUTH_TOKEN;
 const fromNumber = process.env.TWILIO_FROM_NUMBER;
-const toNumber = "+61420808520";
+const toNumber = "+61498988182";
 const messageBody = process.env.MESSAGE_BODY;
 
 const client = Twilio(accountSid, authToken);
@@ -20,6 +20,7 @@ client.messages
     console.error('Failed to send SMS:', err);
     process.exit(1);
   });
+
 
 
 
