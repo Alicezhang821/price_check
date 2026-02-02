@@ -17,6 +17,8 @@ jobs:
 
       - run: npm ci
 
+      # 4. Install Playwright browsers & system dependencies
+      - run: npx playwright install --with-deps
       # Run Playwright test to check price
       - name: Run Playwright test
         run: npx playwright test
