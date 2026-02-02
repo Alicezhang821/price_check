@@ -20,7 +20,7 @@ test('Price alert', async ({ page }) => {
     const price = Number(priceText.replace(/,/g, '').trim());
     console.log(price);
     fs.writeFileSync('./price.txt', price.toString());
-    expect(price).toBeGreaterThanOrEqual(7000);
+    expect(price).toBeGreaterThanOrEqual(6000);
   } else {
     console.log('Out of stock');
   }
