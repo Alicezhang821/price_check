@@ -1,0 +1,14 @@
+name: Scheduled job
+
+on:
+  schedule:
+    - cron: '*/30 * * * *'
+  workflow_dispatch:     # optional: allows manual run
+
+jobs:
+  run-task:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run script
+        run: npx playwright test
