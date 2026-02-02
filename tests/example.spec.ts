@@ -10,7 +10,9 @@ test.only('Price alert', async ({ page }) => {
     await expect(addToCartButton).toBeEnabled();
     const price = await page.locator(`div.medium-5 .price--large .price__amount`).textContent();
     console.log(price);
+    expect(price).toBeGreaterThan(6000);
   } else { console.log('Out of stock') }
+
 });
 
 
