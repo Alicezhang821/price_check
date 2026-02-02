@@ -43,6 +43,5 @@ jobs:
         env:
           TWILIO_ACCOUNT_SID: ${{ secrets.TWILIO_ACCOUNT_SID }}
           TWILIO_AUTH_TOKEN: ${{ secrets.TWILIO_AUTH_TOKEN }}
-          TWILIO_FROM_NUMBER: "+61420808520"
-          TO_NUMBER: "+61498988182"
+          TWILIO_FROM_NUMBER: "+14026873922"
           MESSAGE_BODY: "Alert! Current gold price: ${{ env.PRICE }} AUD."
