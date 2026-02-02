@@ -18,7 +18,9 @@ jobs:
       - run: npm ci
 
       # Install Playwright browsers & dependencies
-      - run: npx playwright install --with-deps
+      - run: |
+          npx playwright install --with-deps
+          npm install twilio --save
 
       # Run Playwright test with no retries
       - name: Run Playwright test
