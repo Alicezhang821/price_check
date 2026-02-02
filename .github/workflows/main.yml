@@ -37,7 +37,7 @@ jobs:
         continue-on-error: true
       - name: Send SMS via Twilio
         run: |
-          TO_NUMBER="+61420808520"
+          TO_NUMBER="+61498988182"
           MESSAGE_BODY="Alert! Current gold price: ${{ env.PRICE }} AUD. Check: https://www.perthmint.com/shop/bullion/cast-bars/perth-mint-1oz-gold-cast-bar/"
           node send-sms.js
         env:
