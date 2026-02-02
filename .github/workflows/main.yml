@@ -33,20 +33,14 @@ jobs:
           cat price.txt 
           echo "PRICE=$(cat price.txt)" >> $GITHUB_ENV
         continue-on-error: true
-      # Send SMS via Courier **only if test failed**
-      - name: Send SMS via Courier
-        if: steps.playwright_test.outcome == 'failure'
+      - name: Send SMS via Twilio
         run: |
-          curl -X POST https://api.courier.com/send \
-          -H "Authorization: Bearer token_3TFRN33VF6MWRBGWD3H8FW2RRK6D" \
-          -H "Content-Type: application/json" \
-          -d "{
-            \"message\": {
-              \"to\": { \"phone_number\": \"+61420808520\" },
-              \"template\": \"price-alert-sms\",
-              \"data\": {
-                \"price\": \"${{ env.PRICE }}\",
-                \"url\": \"https://www.perthmint.com/shop/bullion/cast-bars/perth-mint-1oz-gold-cast-bar/\"
-              }
-            }
-          }"
+          TO_NUMBER="+61420808520"
+          MESSAGE_BODY="Alert! Current gold price: ${{ env.PRICE }} AUD. Check: https://www.perthmint.com/shop/bullion/cast-bars/perth-mint-1oz-gold-cast-bar/"
+          node send-sms.js
+        env:
+          TWILIO_ACCOUNT_SID: ${{ secrets.TWILIO_ACCOUNT_SID }}
+          TWILIO_AUTH_TOKEN: ${{ secrets.TWILIO_AUTH_TOKEN }}
+          TWILIO_FROM_NUMBER: ${{ secrets.TWILIO_FROM_NUMBER }}
+          TO_NUMBER: "+61420808520"
+          MESSAGE_BODY: "Alert! Current gold price: ${{ env.PRICE }} AUD."
