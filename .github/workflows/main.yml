@@ -17,11 +17,14 @@ jobs:
 
       - run: npm ci
 
-      # 4. Install Playwright browsers & system dependencies
+      # Install Playwright browsers & dependencies
       - run: npx playwright install --with-deps
-      # Run Playwright test to check price
+
+      # Run Playwright test with no retries
       - name: Run Playwright test
-        run: npx playwright test
+        id: playwright_test
+        run: npx playwright test --retries=0
+        continue-on-error: true # Important! Allows workflow to continue even if test fails
 
       # Read price from Playwright output
       - name: Set price variable
@@ -29,8 +32,9 @@ jobs:
         run: |
           echo "PRICE=$(cat price.txt)" >> $GITHUB_ENV
 
-      # Send SMS via Courier
+      # Send SMS via Courier **only if test failed**
       - name: Send SMS via Courier
+        if: steps.playwright_test.outcome == 'failure'
         run: |
           curl -X POST https://api.courier.com/send \
           -H "Authorization: Bearer ${{ secrets.COURIER_API_KEY }}" \
