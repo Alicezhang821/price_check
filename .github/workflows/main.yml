@@ -30,14 +30,15 @@ jobs:
       - name: Set price variable
         id: price
         run: |
+          cat price.txt 
           echo "PRICE=$(cat price.txt)" >> $GITHUB_ENV
-
+        continue-on-error: true
       # Send SMS via Courier **only if test failed**
       - name: Send SMS via Courier
         if: steps.playwright_test.outcome == 'failure'
         run: |
           curl -X POST https://api.courier.com/send \
-          -H "Authorization: Bearer ${{ secrets.COURIER_API_KEY }}" \
+          -H "Authorization: Bearer token_3TFRN33VF6MWRBGWD3H8FW2RRK6D" \
           -H "Content-Type: application/json" \
           -d "{
             \"message\": {
