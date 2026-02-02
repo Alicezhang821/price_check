@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 import fs from 'fs';
 test('Price alert', async ({ page }) => {
-  await page.goto('https://www.perthmint.com/shop/bullion/cast-bars/perth-mint-1oz-gold-cast-bar/');
+  await page.goto('https://www.perthmint.com/shop/bullion/cast-bars/perth-mint-1oz-gold-cast-bar/', { timeout: 60000 });
   await page.locator(`button#onetrust-reject-all-handler`).click();
   const addToCartButton = page.locator('button.button--large', { hasText: 'Add to Cart' });
   await page.waitForTimeout(5000);
