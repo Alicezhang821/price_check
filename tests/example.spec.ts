@@ -26,7 +26,7 @@ test('Price alert', async ({ page }) => {
     console.log(price);
 
     expect(Number.isNaN(price)).toBeFalsy();
-    expect(price).toBeGreaterThan(6000);
+    expect(price).toBeGreaterThan(7000);
   } else {
     console.log('Out of stock');
   }
