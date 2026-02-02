@@ -43,7 +43,7 @@ jobs:
           -d "{
             \"message\": {
               \"to\": { \"phone_number\": \"+61420808520\" },
-              \"template\": \"price-alert-sms\",
+              \"template\": \"QB19PD6F3YMJ3YNA08TKMTYMN7J1\",
               \"data\": {
                 \"price\": \"${{ env.PRICE }}\",
                 \"url\": \"https://www.perthmint.com/shop/bullion/cast-bars/perth-mint-1oz-gold-cast-bar/\"
