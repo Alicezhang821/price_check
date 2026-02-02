@@ -2,8 +2,8 @@ name: Scheduled job
 
 on:
   schedule:
-    - cron: '*/30 * * * *'
-  workflow_dispatch:     # optional: allows manual run
+    - cron: "*/30 * * * *"
+  workflow_dispatch: # optional: allows manual run
 
 jobs:
   run-task:
@@ -11,4 +11,4 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Run script
-        run: npx playwright test
+        run: npx playwright test|echo "PRICE=$(cat price.txt)" >> $GITHUB_ENV
