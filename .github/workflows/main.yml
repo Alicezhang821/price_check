@@ -36,7 +36,7 @@ jobs:
           echo "PRICE=$(cat price.txt)" >> $GITHUB_ENV
         continue-on-error: true
       - name: Send SMS via Twilio
-        if: ${{ env.PRICE < 6000 }}
+        if: ${{ env.PRICE > 5000 && env.PRICE < 6000 }}
         run: |
           TO_NUMBER="+61498988182"
           MESSAGE_BODY="Alert! Current gold price: ${{ env.PRICE }} AUD. Check: https://www.perthmint.com/shop/bullion/cast-bars/perth-mint-1oz-gold-cast-bar/"
